@@ -18,7 +18,7 @@ REST‑сервис для управления балансами кошель�
  docker-compose logs -f api
 ```
 
-Cервис доступен на **http://localhost:8080**.
+Cервис будет доступен на **http://localhost:8080**.
 
 ---
 
@@ -66,6 +66,15 @@ go test ./...
 # с детектором гонок (gcc / clang обязателен)
 CGO_ENABLED=1 go test -race ./...
 ```
+
+---
+
+## Нагрузочное тестирование
+
+hey -n 60000 -c 240 -m POST `
+-H "Content-Type: application/json" `
+-d '{\"valletId\":\"b246cbe3-557f-4bf7-908e-9037717415b3\",\"operationType\":\"DEPOSIT\",\"amount\":1000}' `
+http://localhost:8080/api/v1/wallet
 
 ---
 
